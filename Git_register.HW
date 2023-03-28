@@ -1,0 +1,70 @@
+#!/bin/python3
+
+# Welcome and introduce
+print("Welcome to Empire Cyber Security!")
+print("Empire Cybersecurity, Lda is a Mozambican company found in January 2017 by Mr. Vanildo Pedro, specialized in consulting, training and solutions in Technology and Information Security areas. We have a solid vision in IT (Information Technology) and IS (Information Systems), always considering the business, culture, people and objectives of the organizations!")
+print("Please fill in the form below to register.:")
+
+# Register user
+name = input("Please enter your name: ")
+age = int(input("Please enter your age: "))
+
+#Validate age
+if age < 18:
+    print("Sorry, you must be at least 18 years old to register for our courses.")
+    exit()
+
+#List certificates and prices
+certificates = {
+    1: {"name": "Network Defender", "price": 13500},
+    2: {"name": "Network Penetration Testing", "price": 13500},
+    3: {"name": "Network Pen Testing Advanced", "price": 13500},
+    4: {"name": "Web Application Defender", "price": 13500},
+    5: {"name": "Web Application Pen Testing", "price": 13500}
+}
+
+#Display certificate options to the user
+print("\nPlease select a certificate to enroll in:")
+for key, value in certificates.items():
+    print(f"{key}. {value['name']} - MZN	{value['price']}")
+
+#Prompt the user to select a certificate
+selected_certificate = input("Enter the number of the certificate you want to enroll in or type 'exit' to quit: ")
+
+#Check if the user wants to exit
+if selected_certificate.lower() == 'exit':
+    print("Thank you for considering our school! Goodbye.")
+    exit()
+
+#Validate the user's certificate selection
+selected_certificate = int(selected_certificate)
+if selected_certificate not in certificates.keys():
+    print("Invalid selection. Please try again.")
+    exit()
+
+#Ask user to pay the bill to proceed with the subscription
+selected_certificate_price = certificates[selected_certificate]["price"]
+print(f"The price for {certificates[selected_certificate]['name']} is MZN{selected_certificate_price}")
+while True:
+    payment = int(input("Please enter the amount you would like to pay or type 'exit' to quit: MZN"))
+    if payment < selected_certificate_price:
+        print("Sorry, you don't have enough money to pay for the course.")
+        exit_choice = input("Do you want to exit the registration process? (Y/N)").upper()
+        if exit_choice == "Y":
+            print("Thank you for considering our campany! Goodbye.")
+            exit()
+    elif payment >= selected_certificate_price:
+        #Verify if the student paid the 1st monthly fee
+        print("Verifying payment...")
+        #Simulating a payment verification process
+        import time
+        time.sleep(3)
+        print("Payment verified! the first monthly fee has been paid")
+        #Congratulations and show all details
+        print(f"\nCongratulations {name}! You have successfully enrolled in {certificates[selected_certificate]['name']}.")
+        print(f"Your total payment is MZN{selected_certificate_price}.")
+        print("Welcome to Empire Cyber Security. We wish you all the best in your learning journey!")
+        break
+    elif selected_certificate.lower() == 'exit' or payment.lower() == 'exit':
+        print("Thank you for considering our company! Goodbye.")
+        exit()
